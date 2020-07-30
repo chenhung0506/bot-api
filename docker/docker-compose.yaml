@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  web:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   args:
+    #     argTest: success
+    image: chenhung0506/customized:${TAG}
+    container_name: customized
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - ~/volumes/customized:/usr/src/app/logs
+      - ~/etc/timezone:/etc/localtime:ro
+    restart: always
+    # deploy:
+    #   resources:
+    #     mem_limit: 5125m
+    # depends_on: 
+    #   - nlu-tde
+    ports: 
+      - "${PORT}:${PORT}"
+    env_file:
+      - dev.env
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:${PORT}/healthCheck || exit 1"]
+      interval: 600s
+      timeout: 10s
+      start_period: 10s
+      # retries: 5
+    # networks:
+    #   - docker-compose-base_default
+networks:
+  default:
+    external:
+      name : emotibot

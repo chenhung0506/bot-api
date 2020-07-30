@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS `hualien` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `hualien`;
+
+CREATE TABLE  IF NOT EXISTS `bot_work_list` (
+  `bot_id` char(32) NOT NULL comment 'from bfop bot-id',
+  `work` int(5) NOT NULL DEFAULT 0 comment '0=閒置, 1=病房消毒, 2=開刀房消毒 , 3=廢棄物回收, 4=器械送急診室 , 5=充電',
+  `return_flag` int(5) NOT NULL DEFAULT 0 comment '0=工作未完成, 1=工作完成',
+  `return_finish` int(5) NOT NULL DEFAULT 0 ,
+  `edit_date` DATE,
+  PRIMARY KEY (`bot_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
